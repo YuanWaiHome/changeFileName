@@ -1,0 +1,8 @@
+server:
+#  servlet:
+#    context-path: /@project.artifactId@/
+  port: 8888
+spring:
+  thymeleaf:
+    prefix: classpath:/templates
+    cache: false

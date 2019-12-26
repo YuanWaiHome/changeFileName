@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Folder Format</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<style>
+.container button {
+	margin: 20px
+}
+
+.h3 {
+	color: orange;
+}
+
+#header {
+	
+}
+
+#header #logo {
+	margin: 30px 0 0 0;
+}
+
+#header #logo h1 {
+	margin: 0;
+	padding: 0;
+	font-size: 22px;
+	text-transform: uppercase;
+}
+
+#pageintro article footer {
+	margin-top: 80px;
+}
+
+.container {
+	padding: 50px 0;
+}
+
+.sectiontitle {
+	margin-bottom: 80px;
+}
+
+.sectiontitle * {
+	margin: 0;
+}
+
+*, *::before, *::after {
+	transition: all .3s ease-in-out;
+}
+
+body {
+	color: #CBCBCB;
+	background-color: #222222;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+	<header id="header" class="hoc clear">
+		<div id="logo" class="fl_left">
+			<h1>
+				<a>Folder Format</a>
+			</h1>
+		</div>
+	</header>
+	<form th:action="@{/ChangeFileName}" th:object="${vo}" method="post">
+		<div class="input-group mb-3 container">
+			<input type="text" class="form-control" placeholder="Full file name"
+				aria-label="Full file name" aria-describedby="basic-addon2"
+				id="fullName">
+		</div>
+
+		<div class="input-group mb-3 container">
+			<label class="col-sm-2 control-label" for="folderUrl">FolderUrl</label>
+			<input type="text" class="form-control" id="folderUrl"
+				name="folderUrl" th:field="*{folderUrl}">
+		</div>
+
+		<div class="form-inline container format">
+			<div class="form-group has-error has-feedback">
+				<label class="col-sm-2 control-label" for="FileName">FileName</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="fileName"
+						name="fileName" th:field="*{fileName}"> <span
+						class="glyphicon glyphicon-remove form-control-feedback"></span>
+				</div>
+			</div>
+		</div>
+		<div class="input-group mb-3 container format">
+			<input type="text" class="form-control"
+				aria-describedby="basic-addon2" id="formatName" name="formatName" th:field="*{formatName}">
+				<button type="submit" class="btn-primary">送出</button>
+		</div>
+	</form>
+	<script>
+		var full = $("#fullName");
+		full.on("keyup", function() {
+			var val, num, param, index, length, finalString;
+			val = full.val();
+			num = val.match(/\d+/);
+			if (num != null) {
+				param = num[0];
+			}
+			index = val.indexOf(param)
+			length = param.length;
+			finalString = '[' + val.substring(0, index + length) + '][高清中文]'
+					+ val.substring(index + length, val.length);
+			$("#formatName").val(finalString);
+			$("#fileName").val(val.substring(0, index + length));
+		})
+		$(".format input").on("click", function() {
+			var v = $(this)
+			v.select();
+			document.execCommand("copy");
+		})
+	</script>
+</body>
+</html>
